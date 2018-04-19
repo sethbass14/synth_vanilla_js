@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.keyboard-container {
+  list-style: none;
+  width: 100%;
+}
+
+.white-key {
+  position: absolute;
+  display: inline-block;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: white;
+  height: 100px;
+  width: 66px;
+  border: 1px solid black;
+  z-index: 1;
+}
+
+.black-key {
+  position: absolute;
+  display: inline-block;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: black;
+  height: 60px;
+  width: 40px;
+  z-index: 2;
+}
+
+.black-key-label {
+  position: absolute;
+  color: white;
+  left: 40%;
+  bottom: 5%;
+}
+
+.white-key-label {
+  position: absolute;
+  bottom: 5%;
+  left: 30%;
+}
