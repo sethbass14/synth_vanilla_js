@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const keyboardContainer = document.getElementsByClassName('keyboard-container')[0]
+  const waveTypeNode = document.getElementById('wave-type')
   showKeys(keyboardContainer)
-  document.addEventListener('keydown', handleKeyDown)
+  document.addEventListener('keydown', (event) => handleKeyDown(event, waveTypeNode))
   document.addEventListener('keyup', handleKeyUp)
   
 })
@@ -12,11 +13,13 @@ gain.connect(audioCtx.destination)
 
 const soundingOscillators = {}
 
-const handleKeyDown = event => {
+const handleKeyDown = (event, waveTypeNode) => {
   const key = event.key
+  const waveType = waveTypeNode.value 
   if (pitchPairs[key]) {
     if (!soundingOscillators[key]) {
       const osc = audioCtx.createOscillator()
+      osc.type = waveType
       osc.frequency.value = pitchPairs[key]
       osc.connect(gain)
       osc.start()
