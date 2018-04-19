@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+  //Grab the keyboard container form the DOM
   const keyboardContainer = document.getElementsByClassName('keyboard-container')[0]
+  //Grab the waveType select box form the DOM
   const waveTypeNode = document.getElementById('wave-type')
-  
-  showKeys(keyboardContainer)
-  
+  //Populate the keyboard with our keys
+  showKeyBoard(keyboardContainer)
+  //Listen for all keydowns
   document.addEventListener('keydown', (event) => handleKeyDown(event, waveTypeNode))
+  //Listen for all keyups
   document.addEventListener('keyup', handleKeyUp)
   
 })
@@ -38,18 +41,16 @@ const handleKeyUp = event => {
   }
 }
 
-const keyMaker = keyObj => {
-  return `<li class="${keyObj.className}" id="${keyObj.pitcj}" style="${keyObj.style}"><span class="${keyObj.className}-label">${keyObj.keypad}</span></li>`
-}
+const keyMaker = keyObj => 
+  `<li class="${keyObj.className}" id="${keyObj.pitch}" style="${keyObj.style}">
+     <span class="${keyObj.className}-label">${keyObj.keypad}</span>
+   </li>`
 
+const keyBoardMaker = keyData => 
+  keyData.map(keyObj => keyMaker(keyObj)).join('')
 
-const keyBoardMaker = keyData => {
-  return keyData.map(keyObj => keyMaker(keyObj)).join('')
-}
-
-const showKeys = node => {
+const showKeyBoard = node =>
   node.innerHTML = keyBoardMaker(keyDataOctave4)
-}
 
 const keyDataOctave4 = [
   {pitch: 'C4', className: 'white-key', style: 'left: 0px;', keypad: 'A'  },
