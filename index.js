@@ -9,27 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => handleKeyDown(event, waveTypeNode))
   //Listen for all keyups
   document.addEventListener('keyup', handleKeyUp)
-  
+
 })
 
 const audioCtx = new AudioContext()
 const gain = audioCtx.createGain()
 gain.connect(audioCtx.destination)
-
 const soundingOscillators = {}
 
 const handleKeyDown = (event, waveTypeNode) => {
   const key = event.key
-  const waveType = waveTypeNode.value 
-  if (pitchPairs[key]) {
-    if (!soundingOscillators[key]) {
+  const waveType = waveTypeNode.value
+  if (pitchPairs[key] && !soundingOscillators[key]) {
+      audioCtx.resume()
       const osc = audioCtx.createOscillator()
       osc.type = waveType
       osc.frequency.value = pitchPairs[key]
       osc.connect(gain)
       osc.start()
-      soundingOscillators[key] = osc  
-    }
+      soundingOscillators[key] = osc
   }
 }
 
@@ -41,12 +39,12 @@ const handleKeyUp = event => {
   }
 }
 
-const keyMaker = keyObj => 
+const keyMaker = keyObj =>
   `<li class="${keyObj.className}" id="${keyObj.pitch}" style="${keyObj.style}">
      <span class="${keyObj.className}-label">${keyObj.keypad}</span>
    </li>`
 
-const keyBoardMaker = keyData => 
+const keyBoardMaker = keyData =>
   keyData.map(keyObj => keyMaker(keyObj)).join('')
 
 const showKeyBoard = node =>
